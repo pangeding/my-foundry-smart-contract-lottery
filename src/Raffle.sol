@@ -33,13 +33,16 @@ contract Raffle{
     error Raffle_NotEnoughEthSent();
     
     uint256 private immutable i_entranceFee = 0.01 ether;
+    uint256 private immutable i_interval;
     address payable[] private s_players;
+    
 
     /** event */
     event EnteredRaffle(address indexed player);
 
-    constructor(uint256 entranceFee){
+    constructor(uint256 entranceFee, uint256 interval){
         i_entranceFee = entranceFee;
+        i_interval = interval;
     }
 
     function enterRaffle() public payable{
@@ -57,7 +60,7 @@ contract Raffle{
     // 2. use the random number to pick a player
     // 3. function should be automatically called 
     function pickWinner() public{
-        
+
     }
 
     /** getter functions */
