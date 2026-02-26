@@ -35,6 +35,7 @@ contract Raffle{
     uint256 private immutable i_entranceFee = 0.01 ether;
     uint256 private immutable i_interval;
     address payable[] private s_players;
+    uint256 private s_lastTimeStamp;
     
 
     /** event */
@@ -43,6 +44,7 @@ contract Raffle{
     constructor(uint256 entranceFee, uint256 interval){
         i_entranceFee = entranceFee;
         i_interval = interval;
+        s_lastTimeStamp = block.timestamp;
     }
 
     function enterRaffle() public payable{
