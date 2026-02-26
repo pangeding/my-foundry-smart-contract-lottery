@@ -62,6 +62,10 @@ contract Raffle{
     // 2. use the random number to pick a player
     // 3. function should be automatically called 
     function pickWinner() public{
+        // check to see if enough time has passed
+        if(block.timestamp - s_lastTimeStamp < i_interval){
+            revert();
+        }
 
     }
 
