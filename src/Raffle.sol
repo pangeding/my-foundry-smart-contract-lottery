@@ -46,6 +46,7 @@ contract Raffle is VRFConsumerBaseV2{
 
     address payable[] private s_players;
     uint256 private s_lastTimeStamp;
+    address private s_recentWinner;
     
 
     /** event */
@@ -106,7 +107,13 @@ contract Raffle is VRFConsumerBaseV2{
         // 4. reset the players
         uint256 indexOfWinner = randomWords[0] % s_players.length;
         address payable winner = s_players[indexOfWinner];
-        winner.transfer(address(this).balance);
+        s_recentWinner = winner;
+        // transfer is deprecated, use call
+        // winner.transfer(address(this).balance);
+        (bool success, ) = winner.call{value: address(this).balance}("");
+        if(!success){
+            revert();
+        }
     }
 
 
