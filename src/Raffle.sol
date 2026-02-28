@@ -33,6 +33,7 @@ import {VRFConsumerBaseV2} from "@chainlink/contracts/src/v0.8/vrf/VRFConsumerBa
  */
 contract Raffle is VRFConsumerBaseV2{
     error Raffle_NotEnoughEthSent();
+    error Raffle_TransferFailed();
 
     uint16 private constant REQUEST_CONFIRMATIONS = 3;
     uint32 private constant NUM_WORDS = 1;
