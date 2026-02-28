@@ -39,7 +39,7 @@ contract Raffle is VRFConsumerBaseV2{
     uint16 private constant REQUEST_CONFIRMATIONS = 3;
     uint32 private constant NUM_WORDS = 1;
     
-    uint256 private immutable i_entranceFee = 0.01 ether;
+    uint256 private immutable i_entranceFee;
     uint256 private immutable i_interval;
     VRFCoordinatorV2Interface private immutable i_vrfCoordinator;
     bytes32 private immutable i_gasLane;
@@ -114,6 +114,8 @@ contract Raffle is VRFConsumerBaseV2{
 
     }
 
+    // CEI check effect and interaction
+
     function fulfillRandomWords(uint256, uint256[] memory randomWords) internal override{
         // 1. get the player index
         // 2. get the player
@@ -127,13 +129,15 @@ contract Raffle is VRFConsumerBaseV2{
         s_players = new address payable[](0);
         s_lastTimeStamp = block.timestamp;
 
+        emit PickedWinner(winner);
+
         // transfer is deprecated, use call
         // winner.transfer(address(this).balance);
         (bool success, ) = winner.call{value: address(this).balance}("");
         if(!success){
             revert();
         }
-        emit PickedWinner(winner);
+        
     }
 
 
