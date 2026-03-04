@@ -51,6 +51,19 @@ contract HelperConfig is Script {
             _gasPriceLink
         );
         vm.stopBroadcast();
+        
+        NetworkConfig memory anvilNetworkConfig = NetworkConfig({
+            entranceFee: 0.01 ether,
+            interval: 30,
+            vrfCoordinator: address(vrfCoordinatorV2Mock),
+            gasLane: 0x474e34a077df58807dbe9c96d3c009b23b3c6d0cce433e59bbf5b34f823bc56c, // doesn't really matter
+            subscriptionId: 0,
+            callbackGasLimit: 500000
+        });
+        
+
+        
+        return anvilNetworkConfig;
     }
 
     /**
